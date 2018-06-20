@@ -1,0 +1,13 @@
+
+import requests
+header = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36'}
+res = requests.get('http://op.hanhande.com/shtml/op_wz/list_2602_1.shtml',headers = header)
+from lxml import etree
+tree5 = etree.HTML(res.text)
+c_list = tree5.xpath('//div[@class="content mt10"]/div[@class="show listbox cc]/ul[@class="spic pic1"]')
+for i in c_list:
+    href= i.xpath('./@src')[0]
+   
+
+    with open('C:/Users/asus/Desktop/tupian/zz','wb') as f:
+        f.write(response.content)
