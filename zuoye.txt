@@ -1,0 +1,63 @@
+mysql> desc gwc;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| id       | int(11)     | NO   | PRI | NULL    | auto_increment |
+| name     | varchar(45) | YES  |     | NULL    |                |
+| love     | varchar(45) | YES  |     | NULL    |                |
+| discount | varchar(20) | YES  |     | NULL    |                |
+| 1212wish | varchar(45) | YES  |     | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+insert into gwc(id,name,love,discount,1212wish) values (1,"jia","yifu","shi","linshi");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from gwc;
++----+------+------+----------+----------+
+| id | name | love | discount | 1212wish |
++----+------+------+----------+----------+
+|  1 | jia  | yifu | shi      | linshi   |
++----+------+------+----------+----------+
+1 row in set (0.00 sec)
+
+mysql> insert into gwc(name,love,discount,1212wish) values ("zhao","yifu","fou","yifu"),("coco","kouhong","shi","huazhuangping"),("lili","riyongping","shi","mianao");
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from gwc;
++----+------+------------+----------+---------------+
+| id | name | love       | discount | 1212wish      |
++----+------+------------+----------+---------------+
+|  1 | jia  | yifu       | shi      | linshi        |
+|  2 | zhao | yifu       | fou      | yifu          |
+|  3 | coco | kouhong    | shi      | huazhuangping |
+|  4 | lili | riyongping | shi      | mianao        |
++----+------+------------+----------+---------------+
+4 rows in set (0.00 sec)
+ update gwc set 1212wish="shoubiao" where id=1;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from gwc;
++----+------+------------+----------+---------------+
+| id | name | love       | discount | 1212wish      |
++----+------+------------+----------+---------------+
+|  1 | jia  | yifu       | shi      | shoubiao      |
+|  2 | zhao | yifu       | fou      | yifu          |
+|  3 | coco | kouhong    | shi      | huazhuangping |
+|  4 | lili | riyongping | shi      | mianao        |
++----+------+------------+----------+---------------+
+4 rows in set (0.00 sec)
+delete from gwc where id=2;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from gwc;
++----+------+------------+----------+---------------+
+| id | name | love       | discount | 1212wish      |
++----+------+------------+----------+---------------+
+|  1 | jia  | yifu       | shi      | shoubiao      |
+|  3 | coco | kouhong    | shi      | huazhuangping |
+|  4 | lili | riyongping | shi      | mianao        |
++----+------+------------+----------+---------------+
+3 rows in set (0.01 sec)
+
