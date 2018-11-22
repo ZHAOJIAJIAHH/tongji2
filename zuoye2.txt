@@ -1,13 +1,195 @@
+mysql> source /home/zhaojiajia/Desktop/hr.sql;
+Query OK, 0 rows affected (0.00 sec)
+mysql> source /home/zhaojiajia/Desktop/scott.sql;
+Query OK, 0 rows affected (0.00 sec)
 
-import requests
-header = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36'}
-res = requests.get('http://op.hanhande.com/shtml/op_wz/list_2602_1.shtml',headers = header)
-from lxml import etree
-tree5 = etree.HTML(res.text)
-c_list = tree5.xpath('//div[@class="content mt10"]/div[@class="show listbox cc]/ul[@class="spic pic1"]')
-for i in c_list:
-    href= i.xpath('./@src')[0]
-   
+mysql> show tables;
++-----------------+
+| Tables_in_hello |
++-----------------+
+| QQ              |
+| WECHAT          |
+| countries       |
+| departments     |
+| dept            |
+| emp             |
+| employees       |
+| gwc             |
+| job_history     |
+| jobs            |
+| locations       |
+| regions         |
+| salgrade        |
++-----------------+
+13 rows in set (0.00 sec)
 
-    with open('C:/Users/asus/Desktop/tupian/zz','wb') as f:
-        f.write(response.content)
+mysql> select * from emp;
++-------+--------+-----------+------+------------+------+---------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL  | COMM    | DEPTNO |
++-------+--------+-----------+------+------------+------+---------+--------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980/12/17 |  800 |         | 20     |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981/2/20  | 1600 | 300.00  | 30     |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981/2/22  | 1250 | 500.00  | 30     |
+|  7566 | JONES  | MANAGER   | 7839 | 1981/4/2   | 2975 |         | 20     |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981/9/28  | 1250 | 1400.00 | 30     |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981/5/1   | 2850 |         | 30     |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981/6/9   | 2450 |         | 10     |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1987/4/19  | 3000 |         | 20     |
+|  7839 | KING   | PRESIDENT |      | 1981/11/17 | 5000 |         | 10     |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981/9/8   | 1500 | 0.00    | 30     |
+|  7876 | ADAMS  | CLERK     | 7788 | 1987/5/23  | 1100 |         | 20     |
+|  7900 | JAMES  | CLERK     | 7698 | 1981/12/3  |  950 |         | 30     |
+|  7902 | FORD   | ANALYST   | 7566 | 1981/12/3  | 3000 |         | 20     |
+|  7934 | MILLER | CLERK     | 7782 | 1982/1/23  | 1300 |         | 10     |
++-------+--------+-----------+------+------------+------+---------+--------+
+14 rows in set (0.00 sec)
+
+mysql> select distinct(sal) from emp;
++------+
+| sal  |
++------+
+|  800 |
+| 1600 |
+| 1250 |
+| 2975 |
+| 2850 |
+| 2450 |
+| 3000 |
+| 5000 |
+| 1500 |
+| 1100 |
+|  950 |
+| 1300 |
++------+
+12 rows in set (0.10 sec)
+
+mysql> select distinct sal from emp where sal>800 and sal<3000;
++------+
+| sal  |
++------+
+| 1600 |
+| 1250 |
+| 2975 |
+| 2850 |
+| 2450 |
+| 1500 |
+| 1100 |
+|  950 |
+| 1300 |
++------+
+9 rows in set (0.34 sec)
+
+mysql> select distinct sal , depton from emp where sal>800 and sal<3000 and depton>=10 and <=20;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '<=20' at line 1
+mysql> select distinct sal , depton from emp where sal>800 and sal<3000 and depton>=10 and depton<=20;
+ERROR 1054 (42S22): Unknown column 'depton' in 'field list'
+mysql> select distinct sal,depton from emp where sal>800 and sal<3000 and depton>=10 and depton<=20;
+ERROR 1054 (42S22): Unknown column 'depton' in 'field list'
+mysql> select distinct sal,deptno from emp where sal>800 and sal<3000 and deptno>=10 and depton<=20;
+ERROR 1054 (42S22): Unknown column 'depton' in 'where clause'
+mysql> select distinct sal,deptno from emp where sal>800 and sal<3000 and deptno>=10 and deptno<=20;
++------+--------+
+| sal  | deptno |
++------+--------+
+| 2975 | 20     |
+| 2450 | 10     |
+| 1100 | 20     |
+| 1300 | 10     |
++------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select sum(mgr) from emp;
++----------+
+| sum(mgr) |
++----------+
+|   100611 |
++----------+
+1 row in set (0.10 sec)
+
+mysql> select max(mgr) from emp;
++----------+
+| max(mgr) |
++----------+
+| 7902     |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select min(mgr) from emp;
++----------+
+| min(mgr) |
++----------+
+|          |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select min(sal) from emp;
++----------+
+| min(sal) |
++----------+
+|      800 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select sum(sal) from emp where sal>1250;
++----------+
+| sum(sal) |
++----------+
+|    23675 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select sal,count(sal) from emp group by sal;
++------+------------+
+| sal  | count(sal) |
++------+------------+
+|  800 |          1 |
+|  950 |          1 |
+| 1100 |          1 |
+| 1250 |          2 |
+| 1300 |          1 |
+| 1500 |          1 |
+| 1600 |          1 |
+| 2450 |          1 |
+| 2850 |          1 |
+| 2975 |          1 |
+| 3000 |          2 |
+| 5000 |          1 |
++------+------------+
+12 rows in set (0.00 sec)
+
+mysql> select sal  from emp order by id desc;
+ERROR 1054 (42S22): Unknown column 'id' in 'order clause'
+mysql> select * from emp order by sal desc;
++-------+--------+-----------+------+------------+------+---------+--------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL  | COMM    | DEPTNO |
++-------+--------+-----------+------+------------+------+---------+--------+
+|  7839 | KING   | PRESIDENT |      | 1981/11/17 | 5000 |         | 10     |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1987/4/19  | 3000 |         | 20     |
+|  7902 | FORD   | ANALYST   | 7566 | 1981/12/3  | 3000 |         | 20     |
+|  7566 | JONES  | MANAGER   | 7839 | 1981/4/2   | 2975 |         | 20     |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981/5/1   | 2850 |         | 30     |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981/6/9   | 2450 |         | 10     |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981/2/20  | 1600 | 300.00  | 30     |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981/9/8   | 1500 | 0.00    | 30     |
+|  7934 | MILLER | CLERK     | 7782 | 1982/1/23  | 1300 |         | 10     |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981/2/22  | 1250 | 500.00  | 30     |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981/9/28  | 1250 | 1400.00 | 30     |
+|  7876 | ADAMS  | CLERK     | 7788 | 1987/5/23  | 1100 |         | 20     |
+|  7900 | JAMES  | CLERK     | 7698 | 1981/12/3  |  950 |         | 30     |
+|  7369 | SMITH  | CLERK     | 7902 | 1980/12/17 |  800 |         | 20     |
++-------+--------+-----------+------+------------+------+---------+--------+
+14 rows in set (0.00 sec)
+
+mysql> select sal, max(empno), count(sal) from emp group by dal having count(sal)>1;
+ERROR 1054 (42S22): Unknown column 'dal' in 'group statement'
+mysql> select sal, max(empno), count(sal) from emp group by sal having count(sal)>1;
++------+------------+------------+
+| sal  | max(empno) | count(sal) |
++------+------------+------------+
+| 1250 |       7654 |          2 |
+| 3000 |       7902 |          2 |
++------+------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> 
+
