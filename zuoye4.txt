@@ -1,0 +1,84 @@
+sudo mysql -u root -p
+[sudo] password for zhaojiajia: 
+Enter password: 
+ show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| hello              |
+| hello_mysql        |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.20 sec)
+
+mysql> use hello;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> create table sc(
+    -> id int primary key not null auto_increment,
+    -> account varchar(20) not null,
+    -> shangping varchar(45));
+Query OK, 0 rows affected (0.33 sec)
+
+mysql> desc sc;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| id        | int(11)     | NO   | PRI | NULL    | auto_increment |
+| account   | varchar(20) | NO   |     | NULL    |                |
+| shangping | varchar(45) | YES  |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+3 rows in set (0.14 sec)
+
+mysql> insert into sc(id,account,shangping) values(1,"lili","lingshi");
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into sc(account,shangping) values("duoduo","coat"),("ruru","shoes"),("keke","watches"),("xinxin","cap"),("gege","pet");
+Query OK, 5 rows affected (0.11 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from sc;
++----+---------+-----------+
+| id | account | shangping |
++----+---------+-----------+
+|  1 | lili    | lingshi   |
+|  2 | duoduo  | coat      |
+|  3 | ruru    | shoes     |
+|  4 | keke    | watches   |
+|  5 | xinxin  | cap       |
+|  6 | gege    | pet       |
++----+---------+-----------+
+6 rows in set (0.01 sec)
+
+mysql> delete from sc where id=1;
+Query OK, 1 row affected (0.14 sec)
+
+mysql> select * from sc;
++----+---------+-----------+
+| id | account | shangping |
++----+---------+-----------+
+|  2 | duoduo  | coat      |
+|  3 | ruru    | shoes     |
+|  4 | keke    | watches   |
+|  5 | xinxin  | cap       |
+|  6 | gege    | pet       |
++----+---------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select shangping  from sc;
++-----------+
+| shangping |
++-----------+
+| coat      |
+| shoes     |
+| watches   |
+| cap       |
+| pet       |
++-----------+
+5 rows in set (0.00 sec)
+
